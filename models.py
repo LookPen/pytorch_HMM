@@ -41,11 +41,11 @@ class HMM(torch.nn.Module):
         if self.is_cuda: log_alpha = log_alpha.cuda()
 
         log_alpha[:, 0, :] = self.emission_model(x[:, 0]) + log_state_priors
-        print(log_alpha[:, 0, :])
+        # print(log_alpha[:, 0, :])
         for t in range(1, T_max):
             log_alpha[:, t, :] = self.emission_model(x[:, t]) + self.transition_model(log_alpha[:, t - 1, :],
                                                                                       use_max=False)
-            print(log_alpha[:, t, :])
+            # print(log_alpha[:, t, :])
 
         log_sums = log_alpha.logsumexp(dim=2)
 

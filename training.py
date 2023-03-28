@@ -47,12 +47,12 @@ class Trainer:
 			loss.backward()
 			self.optimizer.step()
 			train_loss += loss.cpu().data.numpy().item() * batch_size
-			if idx % print_interval == 0:
-				print(loss.item())
-				for _ in range(5):
-					sampled_x, sampled_z = self.model.sample()
-					print("".join([self.config.Sx[s] for s in sampled_x]))
-					print(sampled_z)
+			# if idx % print_interval == 0:
+			# 	print(loss.item())
+			# 	for _ in range(5):
+			# 		sampled_x, sampled_z = self.model.sample()
+			# 		print("".join([self.config.Sx[s] for s in sampled_x]))
+			# 		print(sampled_z)
 		train_loss /= num_samples
 		train_acc /= num_samples
 		return train_loss
@@ -70,11 +70,11 @@ class Trainer:
 			log_probs = self.model(x,T)
 			loss = -log_probs.mean()
 			test_loss += loss.cpu().data.numpy().item() * batch_size
-			if idx % print_interval == 0:
-				print(loss.item())
-				sampled_x, sampled_z = self.model.sample()
-				print("".join([self.config.Sx[s] for s in sampled_x]))
-				print(sampled_z)
+			# if idx % print_interval == 0:
+			# 	print(loss.item())
+			# 	sampled_x, sampled_z = self.model.sample()
+			# 	print("".join([self.config.Sx[s] for s in sampled_x]))
+			# 	print(sampled_z)
 		test_loss /= num_samples
 		test_acc /= num_samples
 		self.scheduler.step(test_loss) # if the validation loss hasn't decreased, lower the learning rate
